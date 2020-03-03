@@ -20,16 +20,15 @@ export class QuotationFormComponent implements OnInit {
   id: number;
 
   quotationResource: any = {};
-  quotation: Quotation;
-  basePlan: QuotationProduct;
-  proposer: QuotationParty;
-  primaryInsured: QuotationParty;
-  supplementaryList: QuotationParty[];
-  jointLife: QuotationParty;
-  riderList: QuotationProduct[];
+  quotation: Quotation = new Quotation();
+  basePlan: QuotationProduct = new QuotationProduct();
+  proposer: QuotationParty = new QuotationParty();
+  primaryInsured: QuotationParty = new QuotationParty();
+  supplementaryList: QuotationParty[] = [];
+  jointLife: QuotationParty = new QuotationParty();
+  riderList: QuotationProduct[] = [];
 
   quotationMetadata: any;
-
 
   constructor(
     private labelService: LabelService,

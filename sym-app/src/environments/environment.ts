@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiUrlLabels: 'http://localhost:3000/labels',
+  apiUrlQuotations: 'http://localhost:3000/quotations',
+  apiUrlPolicies: 'http://localhost:3000/policies'
 };
 
 /*

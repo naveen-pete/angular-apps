@@ -5,12 +5,18 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row paddingTop" *ngIf="resourcesLoaded">
     <div class="col-3">
       <sym-menu></sym-menu>
     </div>
     <div class="col">
       <router-outlet></router-outlet>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!resourcesLoaded">
+    <div class="col alert alert-info">
+      Loading resources. Please wait...
     </div>
   </div>
 

@@ -7,11 +7,20 @@ import { LabelService } from './system-common/services/label.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'sym-app';
+  resourcesLoaded = false;
 
   constructor(private labelService: LabelService) { }
 
   ngOnInit() {
-    this.labelService.loadLabels();
+    this.labelService.loadLabels().subscribe(
+      () => {
+        this.resourcesLoaded = true;
+        console.log('Load labels successful.');
+      },
+      error => {
+        console.log('Load labels failed.');
+        console.log('Error:', error);
+      }
+    );
   }
 }

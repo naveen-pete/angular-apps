@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { tap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,16 +14,11 @@ export class LabelService {
   constructor(private http: HttpClient) { }
 
   loadLabels() {
-    this.http.get(this.apiUrl).subscribe(
-      labelResource => {
+    return this.http.get(this.apiUrl).pipe(
+      tap(labelResource => {
         this.labelResource = labelResource;
-        console.log('Labels loaded successfully.');
         this.loaded = true;
-      },
-      error => {
-        console.log('Get labels failed.');
-        console.log('Error:', error);
-      }
+      })
     );
   }
 
