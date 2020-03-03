@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MenuItem } from 'src/app/models/common/menu-item';
+import { MenuItem } from '../models/menu-item';
 
 @Injectable({
   providedIn: 'root'
@@ -7,8 +7,8 @@ import { MenuItem } from 'src/app/models/common/menu-item';
 export class MenuService {
   menuItems: MenuItem[] = [
     { code: 'home', description: 'Home', action: '/' },
-    { code: 'quotation', description: 'Quotation', action: '/quotation' },
-    { code: 'policy', description: 'Policy', action: '/policy' }
+    { code: 'quotation', description: 'Quotation', action: '/search/1' },
+    { code: 'policy', description: 'Policy', action: '/search/2' }
   ]
 
   constructor() { }

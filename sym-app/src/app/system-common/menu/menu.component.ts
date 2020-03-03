@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { MenuItem } from 'src/app/models/common/menu-item';
+import { MenuItem } from '../models/menu-item';
 import { MenuService } from '../services/menu.service';
 
 @Component({

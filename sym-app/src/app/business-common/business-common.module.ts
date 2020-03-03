@@ -4,13 +4,11 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { MenuComponent } from './menu/menu.component';
 import { BusinessCommonRoutingModule } from './business-common-routing.module';
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    MenuComponent,
     HomeComponent,
     FooterComponent
   ],
@@ -20,7 +18,6 @@ import { BusinessCommonRoutingModule } from './business-common-routing.module';
   ],
   exports: [
     HeaderComponent,
-    MenuComponent,
     HomeComponent,
     FooterComponent,
     BusinessCommonRoutingModule
