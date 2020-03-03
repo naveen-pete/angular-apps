@@ -14,7 +14,7 @@ export class SearchService {
     ]
   };
 
-  search(searchName: string) {
+  search(searchId: string) {
     return this.result;
   }
 }

@@ -1,1 +1,15 @@
 <h4>Search</h4>
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th scope="col" *ngFor="let field of searchResult.fields">
+        {{ field }}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of searchResult.values">
+      <td *ngFor="let value of row"><a routerLink="/home">{{ value }}</a></td>
+    </tr>
+  </tbody>
+</table>
