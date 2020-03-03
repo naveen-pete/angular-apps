@@ -16,7 +16,7 @@ import { SystemCommonModule } from './system-common/system-common.module';
     QuotationModule,
     PolicyModule,
     SystemCommonModule,
-    BusinessCommonModule,
+    BusinessCommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
