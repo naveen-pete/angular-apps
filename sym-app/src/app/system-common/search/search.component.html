@@ -3,13 +3,13 @@
   <thead>
     <tr>
       <th scope="col" *ngFor="let field of searchResult.fields">
-        {{ field }}
+        {{ field.name }}
       </th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let row of searchResult.values">
-      <td *ngFor="let value of row"><a routerLink="/home">{{ value }}</a></td>
+      <td *ngFor="let value of row"><a [routerLink]="getLink(row[0])">{{ value }}</a></td>
     </tr>
   </tbody>
 </table>

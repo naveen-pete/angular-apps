@@ -15,6 +15,7 @@ export class SearchComponent implements OnInit {
     fields: [],
     values: []
   };
+  link = '/quotation';
 
   constructor(
     private searchService: SearchService,
@@ -29,6 +30,10 @@ export class SearchComponent implements OnInit {
   }
 
   mapSearchResultToItems(searchResult: SearchResult) {
+  }
+
+  getLink(routeParamValue) {
+    return `${this.link}/${routeParamValue}`;
   }
 
 }
