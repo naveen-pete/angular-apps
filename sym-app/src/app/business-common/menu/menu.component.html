@@ -1,0 +1,4 @@
+<div class="nav flex-column nav-pills">
+  <a *ngFor="let mi of menuItems" class="nav-link" [routerLink]="mi.action" routerLinkActive="active"
+    [routerLinkActiveOptions]="{exact: true}">{{mi.description}}</a>
+</div>
