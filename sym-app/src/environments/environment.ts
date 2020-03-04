@@ -4,9 +4,13 @@
 
 export const environment = {
   production: false,
-  apiUrlLabels: 'http://localhost:3000/labels',
-  apiUrlQuotations: 'http://localhost:3000/quotations',
-  apiUrlPolicies: 'http://localhost:3000/policies'
+  apiUrl: {
+    labels: 'http://localhost:3000/labels',
+    quotations: 'http://localhost:3000/quotations',
+    policies: 'http://localhost:3000/policies',
+    menu: 'http://localhost:3000/menu',
+    search: 'http://localhost:3000/search'
+  }
 };
 
 /*
