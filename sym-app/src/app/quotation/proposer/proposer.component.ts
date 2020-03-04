@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { LabelService } from 'src/app/system-common/services/label.service';
-import { QuotationParty } from 'src/app/models/quotation/quotation-party';
 
 @Component({
   selector: 'sym-proposer',
@@ -8,44 +7,51 @@ import { QuotationParty } from 'src/app/models/quotation/quotation-party';
   styleUrls: ['./proposer.component.css']
 })
 export class ProposerComponent implements OnInit, OnChanges {
-  @Input() model: QuotationParty;
+  @Input() model: any;
   @Input() metadata: any;
+  @Input() lookups: any;
+
+  fieldKeys = ['firstname', 'lastname', 'genderCd', 'maritalStatus', 'dob', 'age', 'relationCd', 'industryCd'];
 
   sectionHeader = '';
-
-  fieldCodes = ['firstname', 'lastname', 'genderCd', 'maritalStatus', 'dob', 'age', 'relationCd', 'industryCd']
-
-  firstNameLabel = '';
-  lastNameLabel = '';
-  genderLabel = '';
-  maritalStatusLabel = '';
-  dobLabel = '';
-  ageLabel = '';
-  relationLabel = '';
-  industryLabel = ''
+  fields = [];
 
   constructor(private labelService: LabelService) { }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.model.currentValue && changes.metadata.currentValue && changes.lookups.currentValue) {
+      this.initFields();
+    }
+  }
 
   ngOnInit(): void {
     this.sectionHeader = this.labelService.getLabelValue('policyProposerDetails');
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    this.initLabels(changes.metadata.currentValue);
+  initFields() {
+    this.fields = this.fieldKeys.map(key => this.createField(key));
   }
 
-  initLabels(metadata) {
-    if (metadata) {
-      this.firstNameLabel = this.labelService.getLabelValue(metadata.firstname.LABELKEY);
-      this.lastNameLabel = this.labelService.getLabelValue(metadata.lastname.LABELKEY);
-      this.genderLabel = this.labelService.getLabelValue(metadata.genderCd.LABELKEY);
-      this.maritalStatusLabel = this.labelService.getLabelValue(metadata.maritalStatus.LABELKEY);
-      this.dobLabel = this.labelService.getLabelValue(metadata.dob.LABELKEY);
-      this.ageLabel = this.labelService.getLabelValue(metadata.age.LABELKEY);
-      this.relationLabel = this.labelService.getLabelValue(metadata.relationCd.LABELKEY);
-      this.industryLabel = this.labelService.getLabelValue(metadata.industryCd.LABELKEY);
-    } else {
-      console.log('Proposer metadata is not initialized');
-    }
+  createField(key: string) {
+    const fieldMetadata = this.metadata[key];
+
+    const value = this.model[key] || "";
+    const label = this.labelService.getLabelValue(fieldMetadata.LABELKEY);
+    const required = fieldMetadata.MINOCCURS === '1' ? true : false;
+    const maxlength = fieldMetadata.MAXLENGTH;
+    const type = fieldMetadata.INPUTTYPECD || 'TEXT';
+    const options = fieldMetadata.LOOKUPCD ? this.lookups[fieldMetadata.LOOKUPCD] : null;
+    const enabled = fieldMetadata.ENABLED === 'YES' ? true : false;
+
+    return {
+      key,
+      label,
+      value,
+      required,
+      maxlength,
+      type,
+      options,
+      enabled
+    };
   }
 }
