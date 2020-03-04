@@ -1,34 +1,32 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { LabelService } from 'src/app/system-common/services/label.service';
-import { Quotation } from 'src/app/models/quotation/quotation';
 
 @Component({
-  selector: 'sym-basic-detail',
-  templateUrl: './basic-detail.component.html',
-  styleUrls: ['./basic-detail.component.css']
+  selector: 'sym-proposer-new',
+  templateUrl: './proposer-new.component.html',
+  styleUrls: ['./proposer-new.component.css']
 })
-export class BasicDetailComponent implements OnInit, OnChanges {
-  @Input() model: Quotation;
-  @Input() metadata: any = {};
+export class ProposerNewComponent implements OnInit {
+  @Input() model: any;
+  @Input() metadata: any;
   @Input() lookups: any;
 
   sectionHeader = '';
 
-  fieldCodes = ['quotationRefNum', 'quotationDt'];
+  fieldCodes = ['firstname', 'lastname', 'genderCd', 'maritalStatus', 'dob', 'age', 'relationCd', 'industryCd']
 
   fields = [];
 
-
   constructor(private labelService: LabelService) { }
-
-  ngOnInit(): void {
-    this.sectionHeader = this.labelService.getLabelValue('basicDetails');
-  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.model.currentValue && changes.metadata.currentValue) {
       this.initFields();
     }
+  }
+
+  ngOnInit(): void {
+    this.sectionHeader = this.labelService.getLabelValue('policyProposerDetails');
   }
 
   initFields() {
@@ -59,5 +57,4 @@ export class BasicDetailComponent implements OnInit, OnChanges {
       enabled
     };
   }
-
 }

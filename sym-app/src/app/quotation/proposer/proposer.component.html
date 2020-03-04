@@ -9,6 +9,8 @@
   </div>
   <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordionExample">
     <div class="card-body">
+      <sym-prd-field-group fields="firstname,lastname,genderCd,maritalStatus,dob,age,relationCd,industryCd">
+      </sym-prd-field-group>
       <div class="form-group">
         <label for="firstName">{{ firstNameLabel }}</label>
         <input type="text" class="form-control" id="firstName" [(ngModel)]="model.firstname">

@@ -13,6 +13,8 @@ export class ProposerComponent implements OnInit, OnChanges {
 
   sectionHeader = '';
 
+  fieldCodes = ['firstname', 'lastname', 'genderCd', 'maritalStatus', 'dob', 'age', 'relationCd', 'industryCd']
+
   firstNameLabel = '';
   lastNameLabel = '';
   genderLabel = '';

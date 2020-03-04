@@ -10,14 +10,7 @@
 
   <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
     <div class="card-body">
-      <div class="form-group">
-        <label for="quotationRefNum">{{ quotationRefNumLabel }}</label>
-        <input type="text" class="form-control" id="quotationRefNum" [(ngModel)]="model.quotationRefNum">
-      </div>
-      <div class="form-group">
-        <label for="quotationDate">{{ quotationDateLabel }}</label>
-        <input type="text" class="form-control" id="quotationDate" [(ngModel)]="model.quotationDt">
-      </div>
+      <sym-prd-field-group [fields]="fields"></sym-prd-field-group>
     </div>
   </div>
 </div>

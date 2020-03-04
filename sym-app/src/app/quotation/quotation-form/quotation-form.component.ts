@@ -28,6 +28,8 @@ export class QuotationFormComponent implements OnInit {
   quotationMetadata: any;
   proposerMetadata: any;
 
+  lookups: any;
+
   constructor(
     private labelService: LabelService,
     private quotationService: QuotationService,
@@ -44,6 +46,7 @@ export class QuotationFormComponent implements OnInit {
           this.quotationResource = quotations[0];
           this.initModels(this.quotationResource.Models);
           this.initMetadata();
+          this.lookups = this.quotationResource.Lookups;
 
           console.log('Get quotation successful.');
         },
