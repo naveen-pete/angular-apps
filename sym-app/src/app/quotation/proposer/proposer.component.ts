@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { LabelService } from 'src/app/system-common/services/label.service';
 import { QuotationParty } from 'src/app/models/quotation/quotation-party';
+import { FieldItem } from 'src/app/system-common/models/field-item';
 
 @Component({
   selector: 'sym-proposer',
@@ -15,7 +16,7 @@ export class ProposerComponent implements OnInit, OnChanges {
   fieldKeys = ['firstname', 'lastname', 'genderCd', 'maritalStatus', 'dob', 'age', 'relationCd', 'industryCd'];
 
   sectionHeader = '';
-  fields = [];
+  fields: FieldItem[] = [];
 
   constructor(private labelService: LabelService) { }
 
@@ -33,7 +34,7 @@ export class ProposerComponent implements OnInit, OnChanges {
     this.fields = this.fieldKeys.map(key => this.createField(key));
   }
 
-  createField(key: string) {
+  createField(key: string): FieldItem {
     const fieldMetadata = this.metadata[key];
 
     const value = this.model[key] || "";

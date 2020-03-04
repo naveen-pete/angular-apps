@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { FieldItem } from '../models/field-item';
 
 @Component({
   selector: 'sym-prd-field-group',
@@ -6,7 +7,7 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./prd-field-group.component.css']
 })
 export class PrdFieldGroupComponent {
-  @Input() fields: any = [];
+  @Input() fields: FieldItem[] = [];
 
   constructor() { }
 }

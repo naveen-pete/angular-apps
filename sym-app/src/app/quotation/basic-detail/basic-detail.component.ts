@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { LabelService } from 'src/app/system-common/services/label.service';
 import { Quotation } from 'src/app/models/quotation/quotation';
+import { FieldItem } from 'src/app/system-common/models/field-item';
 
 @Component({
   selector: 'sym-basic-detail',
@@ -15,7 +16,7 @@ export class BasicDetailComponent implements OnInit, OnChanges {
   fieldKeys = ['quotationRefNum', 'quotationDt'];
 
   sectionHeader = '';
-  fields = [];
+  fields: FieldItem[] = [];
 
   constructor(private labelService: LabelService) { }
 
@@ -33,7 +34,7 @@ export class BasicDetailComponent implements OnInit, OnChanges {
     this.fields = this.fieldKeys.map(code => this.createField(code));
   }
 
-  createField(key: string) {
+  createField(key: string): FieldItem {
     const fieldMetadata = this.metadata[key];
 
     const value = this.model[key] || "";

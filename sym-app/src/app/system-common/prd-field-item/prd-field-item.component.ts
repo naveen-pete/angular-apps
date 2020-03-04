@@ -1,4 +1,5 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { FieldItem } from '../models/field-item';
 
 @Component({
   selector: 'sym-prd-field-item',
@@ -6,5 +7,5 @@ import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/cor
   styleUrls: ['./prd-field-item.component.css']
 })
 export class PrdFieldItemComponent {
-  @Input() field: any;
+  @Input() field: FieldItem;
 }
