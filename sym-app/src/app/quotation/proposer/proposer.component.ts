@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { LabelService } from 'src/app/system-common/services/label.service';
+import { QuotationParty } from 'src/app/models/quotation/quotation-party';
 
 @Component({
   selector: 'sym-proposer',
@@ -7,7 +8,7 @@ import { LabelService } from 'src/app/system-common/services/label.service';
   styleUrls: ['./proposer.component.css']
 })
 export class ProposerComponent implements OnInit, OnChanges {
-  @Input() model: any;
+  @Input() model: QuotationParty;
   @Input() metadata: any;
   @Input() lookups: any;
 

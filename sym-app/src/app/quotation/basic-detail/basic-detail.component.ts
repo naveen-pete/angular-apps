@@ -9,38 +9,34 @@ import { Quotation } from 'src/app/models/quotation/quotation';
 })
 export class BasicDetailComponent implements OnInit, OnChanges {
   @Input() model: Quotation;
-  @Input() metadata: any = {};
+  @Input() metadata: any;
   @Input() lookups: any;
 
+  fieldKeys = ['quotationRefNum', 'quotationDt'];
+
   sectionHeader = '';
-
-  fieldCodes = ['quotationRefNum', 'quotationDt'];
-
   fields = [];
 
-
   constructor(private labelService: LabelService) { }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.model.currentValue && changes.metadata.currentValue && changes.lookups.currentValue) {
+      this.initFields();
+    }
+  }
 
   ngOnInit(): void {
     this.sectionHeader = this.labelService.getLabelValue('basicDetails');
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.model.currentValue && changes.metadata.currentValue) {
-      this.initFields();
-    }
-  }
-
   initFields() {
-    this.fields = this.fieldCodes.map(code => {
-      return this.createField(code);
-    });
+    this.fields = this.fieldKeys.map(code => this.createField(code));
   }
 
-  createField(code) {
-    const fieldMetadata = this.metadata[code];
+  createField(key: string) {
+    const fieldMetadata = this.metadata[key];
 
-    const value = this.model[code] || "";
+    const value = this.model[key] || "";
     const label = this.labelService.getLabelValue(fieldMetadata.LABELKEY);
     const required = fieldMetadata.MINOCCURS === '1' ? true : false;
     const maxlength = fieldMetadata.MAXLENGTH;
@@ -49,7 +45,7 @@ export class BasicDetailComponent implements OnInit, OnChanges {
     const enabled = fieldMetadata.ENABLED === 'YES' ? true : false;
 
     return {
-      code,
+      key,
       label,
       value,
       required,
@@ -59,5 +55,4 @@ export class BasicDetailComponent implements OnInit, OnChanges {
       enabled
     };
   }
-
 }
