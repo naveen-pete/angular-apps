@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { environment } from '../../../environments/environment';
 
@@ -12,6 +12,7 @@ export class QuotationService {
   constructor(private http: HttpClient) { }
 
   getQuotation(id: number) {
-    return this.http.get(`${this.apiUrl}?id=${id}`);
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.get(`${this.apiUrl}?id=${id}`, { headers: headers });
   }
 }

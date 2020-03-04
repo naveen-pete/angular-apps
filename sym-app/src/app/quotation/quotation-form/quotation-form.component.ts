@@ -14,9 +14,6 @@ import { QuotationParty } from '../../models/quotation/quotation-party';
 })
 export class QuotationFormComponent implements OnInit {
   header = '';
-  quotationRefNumLabel = '';
-  quatationDateLabel = '';
-
   id: number;
 
   quotationResource: any = {};
@@ -29,6 +26,7 @@ export class QuotationFormComponent implements OnInit {
   riderList: QuotationProduct[] = [];
 
   quotationMetadata: any;
+  proposerMetadata: any;
 
   constructor(
     private labelService: LabelService,
@@ -38,6 +36,7 @@ export class QuotationFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.header = this.labelService.getLabelValue('AddQuotation');
+
     this.route.paramMap.subscribe(map => {
       this.id = +map.get('id');
       this.quotationService.getQuotation(this.id).subscribe(
@@ -68,8 +67,7 @@ export class QuotationFormComponent implements OnInit {
 
   initMetadata() {
     this.quotationMetadata = this.quotationResource.Metadata[this.quotation.guid];
-    this.quotationRefNumLabel = this.labelService.getLabelValue(this.quotationMetadata.quotationRefNum.LABELKEY);
-    this.quatationDateLabel = this.labelService.getLabelValue(this.quotationMetadata.quotationDt.LABELKEY);
+    this.proposerMetadata = this.quotationResource.Metadata[this.proposer.guid];
   }
 
 }

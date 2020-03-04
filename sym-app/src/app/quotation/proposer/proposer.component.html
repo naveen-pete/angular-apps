@@ -1,0 +1,46 @@
+<div class="card">
+  <div class="card-header" id="headingThree">
+    <h2 class="mb-0">
+      <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree"
+        aria-expanded="false" aria-controls="collapseThree">
+        {{ sectionHeader }}
+      </button>
+    </h2>
+  </div>
+  <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordionExample">
+    <div class="card-body">
+      <div class="form-group">
+        <label for="firstName">{{ firstNameLabel }}</label>
+        <input type="text" class="form-control" id="firstName" [(ngModel)]="model.firstname">
+      </div>
+      <div class="form-group">
+        <label for="lastName">{{ lastNameLabel }}</label>
+        <input type="text" class="form-control" id="lastName" [(ngModel)]="model.lastname">
+      </div>
+      <div class="form-group">
+        <label for="gender">{{ genderLabel }}</label>
+        <input type="text" class="form-control" id="gender" [(ngModel)]="model.genderCd">
+      </div>
+      <div class="form-group">
+        <label for="maritalStatus">{{ maritalStatusLabel }}</label>
+        <input type="text" class="form-control" id="maritalStatus" [(ngModel)]="model.maritalStatus">
+      </div>
+      <div class="form-group">
+        <label for="dob">{{ dobLabel }}</label>
+        <input type="text" class="form-control" id="dob" [(ngModel)]="model.dob">
+      </div>
+      <div class="form-group">
+        <label for="age">{{ ageLabel }}</label>
+        <input type="text" class="form-control" id="age" [(ngModel)]="model.age">
+      </div>
+      <div class="form-group">
+        <label for="relation">{{ relationLabel }}</label>
+        <input type="text" class="form-control" id="relation" [(ngModel)]="model.relationCd">
+      </div>
+      <div class="form-group">
+        <label for="industry">{{ industryLabel }}</label>
+        <input type="text" class="form-control" id="industry" [(ngModel)]="model.industryCd">
+      </div>
+    </div>
+  </div>
+</div>
