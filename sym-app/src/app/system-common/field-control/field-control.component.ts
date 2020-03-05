@@ -8,4 +8,12 @@ import { FieldItem } from '../models/field-item';
 })
 export class FieldControlComponent {
   @Input() field: FieldItem;
+
+  getFieldLabel() {
+    return `${this.field.label} ${this.field.required ? '*' : ''}`;
+  }
+
+  getFieldId(code) {
+    return `${this.field.key}_${code}`;
+  }
 }

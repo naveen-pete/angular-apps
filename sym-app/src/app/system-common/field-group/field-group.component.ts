@@ -37,10 +37,10 @@ export class FieldGroupComponent implements OnChanges {
     const value = model[key] || "";
     const label = this.labelService.getLabelValue(LABELKEY);
     const required = MINOCCURS === '1' ? true : false;
-    const maxlength = MAXLENGTH;
+    const maxlength = MAXLENGTH || 100;
     const type = INPUTTYPECD || 'TEXT';
     const options = LOOKUPCD ? this.lookups[LOOKUPCD] : null;
-    const enabled = ENABLED === 'YES' ? true : false;
+    const enabled = ENABLED === 'NO' ? false : true;
 
     return {
       key,
