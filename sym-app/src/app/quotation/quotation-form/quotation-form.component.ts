@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { LabelService } from '../../system-common/services/label.service';
 import { QuotationService } from '../services/quotation.service';
-import { SectionData } from '../../models/quotation/section-data';
+import { LabelService } from '../../system-common/services/label.service';
+import { SectionData } from '../../system-common/models/section-data';
 
 @Component({
   selector: 'sym-quotation-form',

@@ -1,14 +1,21 @@
 <h4>{{header}}</h4>
 
 <div class="accordion" id="accordionExample">
-  <sym-quotation-section sectionHeaderKey="basicDetails" fieldKeys="quotationRefNum, quotationDt"
-    [data]="basicDetailData" [lookups]="lookups">
-    <div>Basic details</div>
+  <sym-quotation-section sectionHeaderKey="basicDetails">
+    <sym-field-group fieldKeys="quotationRefNum, quotationDt" [data]="basicDetailData" [lookups]="lookups">
+    </sym-field-group>
   </sym-quotation-section>
 
-  <sym-quotation-section sectionHeaderKey="policyProposerDetails"
-    fieldKeys="firstname, lastname, genderCd, maritalStatus, dob, age, relationCd, industryCd" [data]="proposerData"
-    [lookups]="lookups">
-    <div>Proposer details</div>
+  <sym-quotation-section sectionHeaderKey="policyProposerDetails">
+    <sym-field-group fieldKeys="firstname, lastname" [data]="proposerData" [lookups]="lookups">
+    </sym-field-group>
+    <sym-field-group fieldKeys="maritalStatus, dob, age" [data]="proposerData" [lookups]="lookups">
+    </sym-field-group>
+    <sym-field-group fieldKeys="genderCd" [data]="proposerData" [lookups]="lookups">
+    </sym-field-group>
+    <sym-field-group fieldKeys="relationCd" [data]="proposerData" [lookups]="lookups">
+    </sym-field-group>
+    <sym-field-group fieldKeys="industryCd" [data]="proposerData" [lookups]="lookups">
+    </sym-field-group>
   </sym-quotation-section>
 </div>

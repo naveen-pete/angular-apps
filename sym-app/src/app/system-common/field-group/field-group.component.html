@@ -1,3 +1,5 @@
-<div *ngFor="let field of fields">
-  <sym-field-control [field]="field"></sym-field-control>
+<div class="row">
+  <div class="col" *ngFor="let field of fieldItems">
+    <sym-field-control [field]="field"></sym-field-control>
+  </div>
 </div>
