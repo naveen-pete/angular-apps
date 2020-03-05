@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { LabelService } from 'src/app/system-common/services/label.service';
+import { LabelService } from '../../system-common/services/label.service';
 import { QuotationService } from '../services/quotation.service';
-import { Quotation } from '../../models/quotation/quotation';
-import { QuotationProduct } from '../../models/quotation/quotation-product';
-import { QuotationParty } from '../../models/quotation/quotation-party';
+import { SectionData } from '../../models/quotation/section-data';
 
 @Component({
   selector: 'sym-quotation-form',
@@ -13,22 +11,17 @@ import { QuotationParty } from '../../models/quotation/quotation-party';
   styleUrls: ['./quotation-form.component.css']
 })
 export class QuotationFormComponent implements OnInit {
-  header = '';
   id: number;
 
-  quotationResource: any = {};
-  quotation: Quotation = new Quotation();
-  basePlan: QuotationProduct = new QuotationProduct();
-  proposer: QuotationParty = new QuotationParty();
-  primaryInsured: QuotationParty = new QuotationParty();
-  supplementaryList: QuotationParty[] = [];
-  jointLife: QuotationParty = new QuotationParty();
-  riderList: QuotationProduct[] = [];
+  header = '';
 
-  quotationMetadata: any;
-  proposerMetadata: any;
+  quotationResource: any = {};
 
   lookups: any;
+  basicDetailData: SectionData;
+  basePlanData: SectionData;
+  proposerData: SectionData;
+  primaryInsuredData: SectionData;
 
   constructor(
     private labelService: LabelService,
@@ -44,9 +37,8 @@ export class QuotationFormComponent implements OnInit {
       this.quotationService.getQuotation(this.id).subscribe(
         quotations => {
           this.quotationResource = quotations[0];
-          this.initModels(this.quotationResource.Models);
-          this.initMetadata();
-          this.lookups = this.quotationResource.Lookups;
+          this.initLookups();
+          this.initSectionData();
 
           console.log('Get quotation successful.');
         },
@@ -58,19 +50,38 @@ export class QuotationFormComponent implements OnInit {
     });
   }
 
+  initSectionData() {
+    this.basicDetailData = this.getSectionData('Entity');
+    this.basePlanData = this.getSectionData('BasePlan');
+    this.proposerData = this.getSectionData('Proposer');
+    this.primaryInsuredData = this.getSectionData('PrimaryInsured');
+  }
+
+  getSectionData(field: string): SectionData {
+    const model = this.quotationResource.Models[field];
+    return {
+      model,
+      metadata: this.quotationResource.Metadata[model.guid]
+    };
+  }
+
+  initLookups() {
+    this.lookups = this.quotationResource.Lookups;
+  }
+
   initModels(models) {
-    this.quotation = models.Entity;
-    this.basePlan = models.BasePlan;
-    this.proposer = models.Proposer;
-    this.primaryInsured = models.PrimaryInsured;
-    this.supplementaryList = models.SupplementaryList;
-    this.jointLife = models.JointLife;
-    this.riderList = models.RiderList;
+    // this.quotation = models.Entity;
+    // this.basePlan = models.BasePlan;
+    // this.proposer = models.Proposer;
+    // this.primaryInsured = models.PrimaryInsured;
+    // this.supplementaryList = models.SupplementaryList;
+    // this.jointLife = models.JointLife;
+    // this.riderList = models.RiderList;
   }
 
   initMetadata() {
-    this.quotationMetadata = this.quotationResource.Metadata[this.quotation.guid];
-    this.proposerMetadata = this.quotationResource.Metadata[this.proposer.guid];
+    // this.quotationMetadata = this.quotationResource.Metadata[this.quotation.guid];
+    // this.proposerMetadata = this.quotationResource.Metadata[this.proposer.guid];
   }
 
 }
