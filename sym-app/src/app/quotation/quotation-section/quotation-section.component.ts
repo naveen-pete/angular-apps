@@ -8,6 +8,7 @@ import { LabelService } from 'src/app/system-common/services/label.service';
 })
 export class QuotationSectionComponent implements OnInit {
   @Input() sectionHeaderKey: string;
+  @Input() show: boolean;
 
   sectionHeader = '';
 
@@ -15,5 +16,9 @@ export class QuotationSectionComponent implements OnInit {
 
   ngOnInit(): void {
     this.sectionHeader = this.labelService.getLabelValue(this.sectionHeaderKey);
+  }
+
+  toggleShow() {
+    this.show = !this.show;
   }
 }
