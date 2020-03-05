@@ -2,9 +2,13 @@
 
 <div class="accordion" id="accordionExample">
   <sym-quotation-section sectionHeaderKey="basicDetails" fieldKeys="quotationRefNum, quotationDt"
-    [data]="basicDetailData" [lookups]="lookups"></sym-quotation-section>
+    [data]="basicDetailData" [lookups]="lookups">
+    <div>Basic details</div>
+  </sym-quotation-section>
 
   <sym-quotation-section sectionHeaderKey="policyProposerDetails"
     fieldKeys="firstname, lastname, genderCd, maritalStatus, dob, age, relationCd, industryCd" [data]="proposerData"
-    [lookups]="lookups"></sym-quotation-section>
+    [lookups]="lookups">
+    <div>Proposer details</div>
+  </sym-quotation-section>
 </div>

@@ -2,11 +2,11 @@ import { Component, Input } from '@angular/core';
 import { FieldItem } from '../models/field-item';
 
 @Component({
-  selector: 'sym-prd-field-group',
-  templateUrl: './prd-field-group.component.html',
-  styleUrls: ['./prd-field-group.component.css']
+  selector: 'sym-field-group',
+  templateUrl: './field-group.component.html',
+  styleUrls: ['./field-group.component.css']
 })
-export class PrdFieldGroupComponent {
+export class FieldGroupComponent {
   @Input() fields: FieldItem[] = [];
 
   constructor() { }

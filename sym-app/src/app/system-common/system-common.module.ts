@@ -5,15 +5,15 @@ import { FormsModule } from '@angular/forms';
 import { SearchComponent } from './search/search.component';
 import { SystemCommonRoutingModule } from './system-common-routing.module';
 import { MenuComponent } from './menu/menu.component';
-import { PrdFieldGroupComponent } from './prd-field-group/prd-field-group.component';
-import { PrdFieldItemComponent } from './prd-field-item/prd-field-item.component';
+import { FieldGroupComponent } from './field-group/field-group.component';
+import { FieldControlComponent } from './field-control/field-control.component';
 
 @NgModule({
   declarations: [
     SearchComponent,
     MenuComponent,
-    PrdFieldGroupComponent,
-    PrdFieldItemComponent
+    FieldGroupComponent,
+    FieldControlComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +23,7 @@ import { PrdFieldItemComponent } from './prd-field-item/prd-field-item.component
   exports: [
     SearchComponent,
     MenuComponent,
-    PrdFieldGroupComponent
+    FieldGroupComponent
   ]
 })
 export class SystemCommonModule { }
