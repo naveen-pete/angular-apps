@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { AngularFireAuth } from "@angular/fire/auth";
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { AuthData } from './auth-data.model';
 import { TrainingService } from '../training/training.service';
+import { UIService } from '../shared/ui.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +18,9 @@ export class AuthService {
   constructor(
     private router: Router,
     private afAuth: AngularFireAuth,
-    private trainingService: TrainingService
+    private snackbar: MatSnackBar,
+    private trainingService: TrainingService,
+    private uiService: UIService
   ) { }
 
   initAuthListener() {
@@ -35,26 +39,36 @@ export class AuthService {
   }
 
   async registerUser(authData: AuthData) {
+    this.uiService.loadingStateChanged.next(true);
     try {
       await this.afAuth.auth.createUserWithEmailAndPassword(
         authData.email,
         authData.password
       );
+      this.uiService.loadingStateChanged.next(false);
     } catch (e) {
-      console.log('Register user failed.');
-      console.log('Error:', e);
+      this.uiService.loadingStateChanged.next(false);
+      this.snackbar.open(e.message, null, {
+        duration: 3000
+      });
+      console.log('Register User Error:', e);
     }
   }
 
   async login(authData: AuthData) {
+    this.uiService.loadingStateChanged.next(true);
     try {
       await this.afAuth.auth.signInWithEmailAndPassword(
         authData.email,
         authData.password
       );
+      this.uiService.loadingStateChanged.next(false);
     } catch (e) {
-      console.log('Login failed.');
-      console.log('Error:', e);
+      this.uiService.loadingStateChanged.next(false);
+      this.snackbar.open(e.message, null, {
+        duration: 3000
+      });
+      console.log('Login Error:', e);
     }
   }
 
@@ -63,7 +77,7 @@ export class AuthService {
       await this.afAuth.auth.signOut();
     } catch (e) {
       console.log('Logout failed.');
-      console.log('Error:', e);
+      console.log('Logout Error:', e);
     }
   }
 
