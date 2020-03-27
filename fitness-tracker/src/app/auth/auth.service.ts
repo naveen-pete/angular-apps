@@ -1,51 +1,73 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { AngularFireAuth } from "@angular/fire/auth";
 
-import { User } from './user.model';
 import { AuthData } from './auth-data.model';
+import { TrainingService } from '../training/training.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   authChange = new Subject<boolean>();
-  private user: User;
+  private isAuthenticated = false;
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private afAuth: AngularFireAuth,
+    private trainingService: TrainingService
+  ) { }
 
-  registerUser(authData: AuthData) {
-    this.user = {
-      email: authData.email,
-      userId: Math.round(Math.random() * 10000).toString()
-    };
-    this.authSuccessful();
+  initAuthListener() {
+    this.afAuth.authState.subscribe(user => {
+      if (user) {
+        this.isAuthenticated = true;
+        this.authChange.next(true);
+        this.router.navigate(['/training']);
+      } else {
+        this.trainingService.cancelSubscriptions();
+        this.isAuthenticated = false;
+        this.authChange.next(false);
+        this.router.navigate(['/login']);
+      }
+    });
   }
 
-  login(authData: AuthData) {
-    this.user = {
-      email: authData.email,
-      userId: Math.round(Math.random() * 10000).toString()
-    };
-    this.authSuccessful();
+  async registerUser(authData: AuthData) {
+    try {
+      await this.afAuth.auth.createUserWithEmailAndPassword(
+        authData.email,
+        authData.password
+      );
+    } catch (e) {
+      console.log('Register user failed.');
+      console.log('Error:', e);
+    }
   }
 
-  logout() {
-    this.user = null;
-    this.authChange.next(false);
-    this.router.navigate(['/login']);
+  async login(authData: AuthData) {
+    try {
+      await this.afAuth.auth.signInWithEmailAndPassword(
+        authData.email,
+        authData.password
+      );
+    } catch (e) {
+      console.log('Login failed.');
+      console.log('Error:', e);
+    }
   }
 
-  getUser() {
-    return { ...this.user };
+  async logout() {
+    try {
+      await this.afAuth.auth.signOut();
+    } catch (e) {
+      console.log('Logout failed.');
+      console.log('Error:', e);
+    }
   }
 
   isAuth() {
-    return this.user != null;
-  }
-
-  private authSuccessful() {
-    this.authChange.next(true);
-    this.router.navigate(['/training']);
+    return this.isAuthenticated;
   }
 }
