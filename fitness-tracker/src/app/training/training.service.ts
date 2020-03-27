@@ -38,11 +38,19 @@ export class TrainingService {
           };
         }))
       )
-      .subscribe(exercises => {
-        this.uiService.loadingStateChanged.next(false);
-        this.availableExercises = exercises;
-        this.exercisesChanged.next([...this.availableExercises]);
-      })
+      .subscribe(
+        exercises => {
+          this.uiService.loadingStateChanged.next(false);
+          this.availableExercises = exercises;
+          this.exercisesChanged.next([...this.availableExercises]);
+        },
+        error => {
+          this.uiService.loadingStateChanged.next(false);
+          this.uiService.showMessage('Fetching Exercises failed, please try again later.', null, 3000);
+          console.log('Error:', error);
+          this.exercisesChanged.next(null);
+        }
+      )
     );
   }
 

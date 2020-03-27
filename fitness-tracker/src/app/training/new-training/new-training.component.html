@@ -5,7 +5,7 @@
 
       <mat-card-content fxLayoutAlign="center">
 
-        <mat-form-field *ngIf="!isLoading">
+        <mat-form-field *ngIf="!isLoading && exercises">
           <mat-select placeholder="Choose Exercise" ngModel name="exercise" required>
             <mat-option *ngFor="let exercise of exercises" [value]="exercise.id">
               {{ exercise.name }}
@@ -18,7 +18,8 @@
       </mat-card-content>
 
       <mat-card-actions fxLayoutAlign="center" *ngIf="!isLoading">
-        <button type="submit" mat-button [disabled]="f.invalid">Start</button>
+        <button *ngIf="exercises" type="submit" mat-button [disabled]="f.invalid">Start</button>
+        <button *ngIf="!exercises" type="button" mat-button (click)="fetchExercises()">Retry</button>
       </mat-card-actions>
     </mat-card>
   </form>

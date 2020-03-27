@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { AngularFireAuth } from "@angular/fire/auth";
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { AuthData } from './auth-data.model';
 import { TrainingService } from '../training/training.service';
@@ -18,7 +17,6 @@ export class AuthService {
   constructor(
     private router: Router,
     private afAuth: AngularFireAuth,
-    private snackbar: MatSnackBar,
     private trainingService: TrainingService,
     private uiService: UIService
   ) { }
@@ -48,9 +46,7 @@ export class AuthService {
       this.uiService.loadingStateChanged.next(false);
     } catch (e) {
       this.uiService.loadingStateChanged.next(false);
-      this.snackbar.open(e.message, null, {
-        duration: 3000
-      });
+      this.uiService.showMessage(e.message, null, 3000);
       console.log('Register User Error:', e);
     }
   }
@@ -65,9 +61,7 @@ export class AuthService {
       this.uiService.loadingStateChanged.next(false);
     } catch (e) {
       this.uiService.loadingStateChanged.next(false);
-      this.snackbar.open(e.message, null, {
-        duration: 3000
-      });
+      this.uiService.showMessage(e.message, null, 3000);
       console.log('Login Error:', e);
     }
   }
