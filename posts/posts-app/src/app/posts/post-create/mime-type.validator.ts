@@ -17,15 +17,13 @@ export const mimeType = (
         }
         console.log('header:', header);
         switch (header) {
-          case "89504e47":
-          // isValid = true;
-          // break;
-          case "47494638":
-          case "ffd8ffe0":
-          case "ffd8ffe1":
-          case "ffd8ffe2":
-          case "ffd8ffe3":
-          case "ffd8ffe8":
+          case "89504e47":  // "image/png"
+          case "47494638":  // "image/gif"
+          case "ffd8ffe0":  // "image/jpeg"
+          case "ffd8ffe1":  // "image/jpeg"
+          case "ffd8ffe2":  // "image/jpeg"
+          case "ffd8ffe3":  // "image/jpeg"
+          case "ffd8ffe8":  // "image/jpeg"
             isValid = true;
             break;
           default:
