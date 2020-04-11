@@ -1,9 +1,13 @@
 import { AbstractControl } from "@angular/forms";
-import { Observable, Observer } from "rxjs";
+import { Observable, Observer, of } from "rxjs";
 
 export const mimeType = (
   control: AbstractControl
-): Promise<{ [key: string]: any }> | Observable<{ [key: string]: any }> => {
+): Observable<{ [key: string]: any }> => {
+  if (typeof (control.value) === 'string') {
+    return of(null);
+  }
+
   const file = control.value as File;
   const fileReader = new FileReader();
   const frObs = Observable.create(
@@ -15,7 +19,7 @@ export const mimeType = (
         for (let i = 0; i < arr.length; i++) {
           header += arr[i].toString(16);
         }
-        console.log('header:', header);
+
         switch (header) {
           case "89504e47":  // "image/png"
           case "47494638":  // "image/gif"

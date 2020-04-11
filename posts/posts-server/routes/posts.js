@@ -43,30 +43,51 @@ router.post(
     });
     post.save().then(createdPost => {
       res.status(201).json({
-        message: "Post added successfully",
+        message: "Create post successful.",
         post: {
-          ...createdPost,
-          id: createdPost._id
+          id: createdPost._id,
+          title: createdPost.title,
+          content: createdPost.content,
+          imagePath: createdPost.imagePath
         }
       });
     });
-  });
+  }
+);
 
-router.put("/:id", (req, res, next) => {
-  const post = new Post({
-    _id: req.body.id,
-    title: req.body.title,
-    content: req.body.content
-  });
-  Post.updateOne({ _id: req.params.id }, post).then(result => {
-    res.status(200).json({ message: "Update successful!" });
-  });
-});
+router.put(
+  "/:id",
+  multer({ storage: storage }).single("image"),
+  (req, res, next) => {
+    let imagePath = req.body.imagePath;
+    if (req.file) {
+      const url = req.protocol + "://" + req.get("host");
+      imagePath = url + "/images/" + req.file.filename
+    }
+    const post = new Post({
+      _id: req.body.id,
+      title: req.body.title,
+      content: req.body.content,
+      imagePath: imagePath
+    });
+    Post.updateOne({ _id: req.params.id }, post).then(result => {
+      res.status(200).json({
+        message: "Update post successful.",
+        post: {
+          id: post._id,
+          title: post.title,
+          content: post.content,
+          imagePath: post.imagePath
+        }
+      });
+    });
+  }
+);
 
 router.get("/", (req, res, next) => {
   Post.find().then(documents => {
     res.status(200).json({
-      message: "Posts fetched successfully!",
+      message: "Get posts successful.",
       posts: documents
     });
   });
@@ -84,7 +105,7 @@ router.get("/:id", (req, res, next) => {
 
 router.delete("/:id", (req, res, next) => {
   Post.deleteOne({ _id: req.params.id }).then(result => {
-    res.status(200).json({ message: "Post deleted!" });
+    res.status(200).json({ message: "Delete post successful." });
   });
 });
 
