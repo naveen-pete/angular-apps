@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 
 const postsRoutes = require("./routes/posts");
+const userRoutes = require("./routes/user");
 
 dotenv.config();
 const app = express();
@@ -13,7 +14,7 @@ const connectToDb = async () => {
     const { DB_HOST, DB_NAME, DB_USER, DB_PASSWORD } = process.env;
     await mongoose.connect(
       `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority&useNewUrlParser=true`,
-      { useNewUrlParser: true, useUnifiedTopology: true }
+      { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }
     );
     console.log('Connected to database!');
   } catch (e) {
@@ -26,7 +27,7 @@ const cors = (req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader(
     'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept'
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
   );
   res.setHeader(
     'Access-Control-Allow-Methods',
@@ -42,6 +43,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use('/images', express.static('images'));
 app.use(cors);
+
 app.use("/api/posts", postsRoutes);
+app.use("/api/user", userRoutes);
 
 module.exports = app;
