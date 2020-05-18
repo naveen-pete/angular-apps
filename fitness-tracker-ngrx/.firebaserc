@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "angular-apps-25558": {
+      "hosting": {
+        "fitness-tracker-ngrx": [
+          "angular-apps-25558"
+        ]
+      }
+    }
+  }
+}
