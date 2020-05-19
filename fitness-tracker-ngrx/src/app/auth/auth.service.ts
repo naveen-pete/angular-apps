@@ -1,52 +1,38 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { Store } from '@ngrx/store';
-
 
 import { AuthData } from './auth-data.model';
 import { TrainingService } from '../training/training.service';
 import { UIService } from '../shared/ui.service';
-import { State } from "../ngrx/reducers/ui.reducer";
+import { State as AppState } from "../ngrx/reducers/app.reducer";
 import { StartLoading, StopLoading } from "../ngrx/actions/ui.actions";
+import { SetAuthenticated, SetUnauthenticated } from "../ngrx/actions/auth.actions";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  authChange = new Subject<boolean>();
-  private isAuthenticated = false;
-
   constructor(
     private router: Router,
     private afAuth: AngularFireAuth,
     private trainingService: TrainingService,
     private uiService: UIService,
-    private store: Store<State>
+    private store: Store<AppState>
   ) { }
 
   initAuthListener() {
     this.afAuth.authState.subscribe(user => {
       if (user) {
-        this.isAuthenticated = true;
-        this.authChange.next(true);
+        this.dispatchSetAuthenticated();
         this.router.navigate(['/training']);
       } else {
         this.trainingService.cancelSubscriptions();
-        this.isAuthenticated = false;
-        this.authChange.next(false);
+        this.dispatchSetUnauthenticated();
         this.router.navigate(['/login']);
       }
     });
-  }
-
-  dispatchStartLoading() {
-    this.store.dispatch(new StartLoading());
-  }
-
-  dispatchStopLoading() {
-    this.store.dispatch(new StopLoading());
   }
 
   async registerUser(authData: AuthData) {
@@ -90,7 +76,19 @@ export class AuthService {
     }
   }
 
-  isAuth() {
-    return this.isAuthenticated;
+  private dispatchSetAuthenticated() {
+    this.store.dispatch(new SetAuthenticated());
+  }
+
+  private dispatchSetUnauthenticated() {
+    this.store.dispatch(new SetUnauthenticated());
+  }
+
+  private dispatchStartLoading() {
+    this.store.dispatch(new StartLoading());
+  }
+
+  private dispatchStopLoading() {
+    this.store.dispatch(new StopLoading());
   }
 }

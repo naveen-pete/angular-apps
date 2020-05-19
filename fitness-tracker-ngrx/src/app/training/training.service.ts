@@ -28,14 +28,6 @@ export class TrainingService {
     private store: Store<State>
   ) { }
 
-  dispatchStartLoading() {
-    this.store.dispatch(new StartLoading());
-  }
-
-  dispatchStopLoading() {
-    this.store.dispatch(new StopLoading());
-  }
-
   fetchAvailableExercises() {
     this.dispatchStartLoading();
     this.subscriptions.push(this.db.collection('availableExercises')
@@ -120,5 +112,13 @@ export class TrainingService {
         console.log('Save exercise failed.');
         console.log('Error:', error);
       });
+  }
+
+  private dispatchStartLoading() {
+    this.store.dispatch(new StartLoading());
+  }
+
+  private dispatchStopLoading() {
+    this.store.dispatch(new StopLoading());
   }
 }
