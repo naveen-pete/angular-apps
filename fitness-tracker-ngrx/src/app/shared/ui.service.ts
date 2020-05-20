@@ -7,7 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class UIService {
   constructor(private snackbar: MatSnackBar) { }
 
-  showMessage(message, action, duration) {
+  showMessage(message: string, action: string, duration: number) {
     this.snackbar.open(message, action, {
       duration: duration
     });

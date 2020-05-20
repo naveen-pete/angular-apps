@@ -4,7 +4,6 @@ import {
   CanLoad,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
-  Router,
   Route,
   UrlSegment
 } from '@angular/router';
@@ -18,7 +17,7 @@ import { State, getIsAuth } from '../ngrx/reducers/app.reducer';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate, CanLoad {
-  constructor(private store: Store<State>, private router: Router) { }
+  constructor(private store: Store<State>) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return this.checkIfAuthenticated();
